@@ -15,7 +15,7 @@ W, H = 2560, 1440          # độ phân giải 2K
 FPS = 144
 
 START_LIVES = 5
-WORDS_PER_LEVEL = 10       # số từ gõ đúng để lên cấp
+WORDS_PER_LEVEL = 10      # số từ gõ đúng để lên cấp
 BASE_SPEED = 90            # px/giây ở cấp 1
 SPEED_PER_LEVEL = 16       # tăng tốc mỗi cấp
 BASE_SPAWN = 2.4           # giây giữa 2 lần sinh từ ở cấp 1
