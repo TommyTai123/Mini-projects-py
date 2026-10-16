@@ -1,4 +1,3 @@
-import json
 import math
 import os
 import random
@@ -45,12 +44,23 @@ DESK_W, DESK_H = desk_size()
 UI_SCALE = None                                 # None = tự động; hoặc ép cứng, ví dụ 1.6
 CAP_W, CAP_H = 2560, 1440                       # độ phân giải vẽ tối đa (~2K)
 START_FULLSCREEN = False                        # True = tự vào toàn màn hình khi mở game
+<<<<<<< HEAD
 CELL = 30    # tự chọn cỡ ô theo chiều cao màn hình
 BW = CELL * N                                   # cạnh bảng chơi
 W = 1280
 BX, BY = (W - BW) // 2, 68                     # vị trí bảng chơi
 DP_Y = BY + BW + 14                             # vị trí hàng nút mũi tên đầu
 H = 720
+=======
+# Giao diện PC: khung ngang 16:9 (1280x720). Bảng chơi bên trái, bảng thông tin bên phải.
+W, H = 1280, 720
+CELL = 32                                       # cỡ mỗi ô (đơn vị thiết kế)
+BW = CELL * N                                   # cạnh bảng chơi (640)
+BX = 48                                         # bảng chơi nằm bên trái
+BY = (H - BW) // 2                              # căn giữa theo chiều dọc
+PX = BX + BW + 40                               # bảng thông tin bên phải: x bắt đầu
+PW = W - 48 - PX                                # bề rộng bảng thông tin
+>>>>>>> b85e16d34e7f858cbf7593b4831616d7685580ed
 SPEED = 6                                       # số bước di chuyển/giây
 FPS = 60
 STEP_MS = 1000 / SPEED                         # thời gian của 1 bước logic (ms)
@@ -94,7 +104,11 @@ view_off = (0, 0)                                  # canvas nằm ở đâu tron
 disp_f = 1.0                                       # hệ số phóng canvas khi hiển thị (1.0 = không phóng)
 applied = (0, 0)                                   # kích thước cửa sổ lúc dựng hình gần nhất
 resize_at = 0.0                                    # thời điểm sẽ dựng lại hình sau khi kéo giãn cửa sổ
+<<<<<<< HEAD
 pygame.display.set_caption("Rắn Săn Điểm Rèn Luyện")
+=======
+pygame.display.set_caption("Rắn Săn Điểm Rèn Luyện - Bản PC")
+>>>>>>> b85e16d34e7f858cbf7593b4831616d7685580ed
 clock = pygame.time.Clock()
 
 
@@ -1092,7 +1106,11 @@ _rng = random.Random(7)
 _FLY_COLS = [(60, 255, 170), (80, 210, 255), (255, 230, 120)]
 _FLY_SPR0 = [[glow_sprite(8, tuple(I(v * f) for v in c), core=0.6) for f in (0.35, 0.65, 1.0)] for c in _FLY_COLS]
 FIREFLIES = [dict(x=_rng.uniform(0, W), y=_rng.uniform(0, H), vx=_rng.uniform(-6, 6), vy=_rng.uniform(-24, -6),
+<<<<<<< HEAD
                   ph=_rng.uniform(0, 6.28), sp=_rng.uniform(0.8, 2.4), c=_rng.randrange(3)) for _ in range(72)]
+=======
+                  ph=_rng.uniform(0, 6.28), sp=_rng.uniform(0.8, 2.4), c=_rng.randrange(3)) for _ in range(80)]
+>>>>>>> b85e16d34e7f858cbf7593b4831616d7685580ed
 
 # --- icon sự kiện trôi lơ lửng
 _ICON_FNS = (icon_broom, icon_blood_club, icon_book, icon_ball, icon_music, icon_heart, icon_star)
@@ -1282,7 +1300,11 @@ def draw_fs_btn():
 
 # --- Menu ---
 MENU_ITEMS = ["Chơi game", "Kỷ lục", "Thành tựu", "Thoát game"]
+<<<<<<< HEAD
 MENU_RECTS = [pygame.Rect((W - 260) // 2, 300 + i * 72, 260, 54) for i in range(len(MENU_ITEMS))]
+=======
+MENU_RECTS = [pygame.Rect((W - 340) // 2, 292 + i * 72, 340, 54) for i in range(len(MENU_ITEMS))]
+>>>>>>> b85e16d34e7f858cbf7593b4831616d7685580ed
 BACK_RECT = pygame.Rect((W - 200) // 2, 520, 200, 54)
 DLG = pygame.Rect(0, 0, 360, 200)
 DLG.center = (W // 2, 360)
@@ -1317,7 +1339,11 @@ def draw_menu():
 def draw_records():
     draw_bg(pygame.time.get_ticks())
     put(f_logo, "Kỷ lục", WHITE, center=(W // 2, 120))
+<<<<<<< HEAD
     card = pygame.Rect((W - 520) // 2, 180, 520, 280)
+=======
+    card = pygame.Rect((W - 560) // 2, 180, 560, 280)
+>>>>>>> b85e16d34e7f858cbf7593b4831616d7685580ed
     rrect(card, WHITE, 20)
     put(f_lbl, "Điểm rèn luyện cao nhất", GRAY, center=(card.centerx, card.y + 50))
     put(f_huge, str(best), TEXT, center=(card.centerx, card.y + 120))
@@ -1340,7 +1366,12 @@ def draw_ach():
     rh = max(72, min(100, (bottom - top - gap * (cnt - 1)) // cnt))
     for i, (key, name, desc, hard) in enumerate(ACHIEVEMENTS):
         ok = key in ach
+<<<<<<< HEAD
         card = pygame.Rect((W - 780) // 2, top + i * (rh + gap), 780, rh)
+=======
+        AW = 820
+        card = pygame.Rect((W - AW) // 2, top + i * (rh + gap), AW, rh)
+>>>>>>> b85e16d34e7f858cbf7593b4831616d7685580ed
         bg = WHITE if ok else ((238, 226, 196) if hard else (214, 222, 232))
         bd = (245, 197, 24) if ok else ((214, 150, 50) if hard else None)
         rrect(card, bg, 16, border=bd, bw=3)
@@ -1364,6 +1395,7 @@ def draw_ach():
     button(ACH_BACK, "Quay lại", hover=ACH_BACK.collidepoint(mouse_pos()), primary=True)
 
 
+<<<<<<< HEAD
 # --- Màn chơi ---
 LPX, LPW = 30, 280                                           # cột trái: thống kê
 RPX, RPW = BX + BW + 30, 280                                 # cột phải: bảng sự kiện + điều khiển
@@ -1383,6 +1415,19 @@ OVER = pygame.Rect(0, 0, 380, 230)
 OVER.center = (W // 2, BY + BW // 2)
 OVER_RETRY = pygame.Rect(OVER.x + 24, OVER.bottom - 66, 150, 46)
 OVER_MENU = pygame.Rect(OVER.right - 174, OVER.bottom - 66, 150, 46)
+=======
+# --- Màn chơi (giao diện PC: bảng chơi bên trái, bảng thông tin bên phải) ---
+DPAD = {}                                                    # PC: điều khiển bằng bàn phím, không cần nút mũi tên
+EXIT_RECT = pygame.Rect(PX + PW - 150, BY + BW - 48, 150, 48)   # nút Thoát (góc phải dưới)
+QDLG = pygame.Rect(0, 0, 360, 200)                           # hộp thoại xác nhận thoát (giữa bảng chơi)
+QDLG.center = (BX + BW // 2, BY + BW // 2)
+QYES = pygame.Rect(QDLG.x + 24, QDLG.bottom - 72, 150, 48)
+QNO = pygame.Rect(QDLG.right - 174, QDLG.bottom - 72, 150, 48)
+OVER = pygame.Rect(0, 0, 320, 210)
+OVER.center = (BX + BW // 2, BY + BW // 2)
+OVER_RETRY = pygame.Rect(OVER.x + 16, OVER.bottom - 62, 138, 44)
+OVER_MENU = pygame.Rect(OVER.right - 154, OVER.bottom - 62, 138, 44)
+>>>>>>> b85e16d34e7f858cbf7593b4831616d7685580ed
 
 
 def draw_quit_confirm():
@@ -1398,6 +1443,7 @@ def draw_quit_confirm():
 def draw_play():
     screen.fill(T["bg"])
 
+<<<<<<< HEAD
     title = f_title.render("Rắn Săn Điểm Rèn Luyện", True, T["text"])
     x0 = I((W - (title.get_width() / S + 38)) / 2)
     snake_logo(x0 + 14, 34, 14)
@@ -1407,10 +1453,25 @@ def draw_play():
                                             (rank(drl), f_rank, "Xếp loại"),
                                             (str(max(best, drl)), f_num, "Kỷ lục"))):
         r = pygame.Rect(LPX, BY + i * 96, LPW, 86)
+=======
+    # ---- bảng thông tin bên phải ----
+    snake_logo(PX + 22, 56, 22)
+    put(f_title, "Rắn Săn Điểm Rèn Luyện", T["text"], midleft=(PX + 56, 56))
+    put(f_lbl, "Ăn hoạt động để đạt 100 điểm. Đi qua khung sẽ xuất hiện", T["sub"], midleft=(PX, 106))
+    put(f_lbl, "ở phía đối diện, nhưng cắn đuôi là hết lượt!", T["sub"], midleft=(PX, 126))
+
+    # 3 thẻ thống kê
+    cw = (PW - 24) // 3
+    for i, (val, font, label) in enumerate(((str(drl), f_num, "Điểm rèn luyện"),
+                                            (rank(drl), f_rank, "Xếp loại"),
+                                            (str(max(best, drl)), f_num, "Kỷ lục"))):
+        r = pygame.Rect(PX + i * (cw + 12), 156, cw, 84)
+>>>>>>> b85e16d34e7f858cbf7593b4831616d7685580ed
         rrect(r, T["card"], 16)
         put(font, val, T["text"], center=(r.centerx, r.y + 36))
         put(f_lbl, label, T["sub"], center=(r.centerx, r.y + 66))
 
+<<<<<<< HEAD
     put(f_lbl, f"Tiến độ: {drl}/{MAX_DRL}", T["sub"], topleft=(LPX, 364))
     rrect(pygame.Rect(LPX, 386, LPW, 14), T["track"], 7)
     fill = LPW * drl // MAX_DRL
@@ -1438,10 +1499,42 @@ def draw_play():
 
     rrect(pygame.Rect(BX, BY, BW, BW), T["board"], 16, border=T["border"], bw=2)
     if T["name"] not in _deco_cache:
+=======
+    # thanh tiến độ
+    rrect(pygame.Rect(PX, 260, PW, 14), T["track"], 7)
+    fill = PW * drl // MAX_DRL
+    if fill > 0:
+        rrect(pygame.Rect(PX, 260, max(fill, 14), 14), T["accent"], 7)
+    put(f_lbl, f"Tiến độ: {drl}/{MAX_DRL} điểm", T["sub"], midleft=(PX, 292))
+
+    # bảng chú thích các sự kiện + điểm
+    leg = pygame.Rect(PX, 316, PW, 204)
+    rrect(leg, T["card"], 16, border=T["border"], bw=1)
+    put(f_btn, "Các sự kiện & điểm cộng", T["text"], midleft=(leg.x + 20, leg.y + 26))
+    for i, (name, pts, _) in enumerate(EVENTS):
+        ex = leg.x + 20 + (i % 2) * (PW // 2 - 4)
+        ey = leg.y + 70 + (i // 2) * 36
+        ic = ICON_BY_NAME[name]
+        screen.blit(ic, ic.get_rect(center=sp((ex + 16, ey))))
+        put(f_txt, f"{name}  +{pts}", T["text"], midleft=(ex + 40, ey))
+
+    # phím điều khiển
+    put(f_lbl, "Phím mũi tên hoặc W A S D: điều khiển rắn", T["sub"], midleft=(PX, 548))
+    put(f_lbl, "ESC: thoát ván  ·  N: bật/tắt âm thanh", T["sub"], midleft=(PX, 570))
+    put(f_lbl, "F11 hoặc nút góc phải: toàn màn hình", T["sub"], midleft=(PX, 592))
+
+    # bảng chơi (phẳng, không lưới ô) + hoạ tiết riêng của map
+    rrect(pygame.Rect(BX, BY, BW, BW), T["board"], 16, border=T["border"], bw=2)
+    if T["name"] not in _deco_cache:                   # bị xoá khi đổi độ phân giải -> dựng lại
+>>>>>>> b85e16d34e7f858cbf7593b4831616d7685580ed
         _deco_cache[T["name"]] = build_deco(T)
     screen.blit(_deco_cache[T["name"]], sp((BX, BY)))
     ms = pygame.time.get_ticks()
 
+<<<<<<< HEAD
+=======
+    # icon sự kiện: hiện ra mượt (pop-in) rồi nhấp nhô nhẹ
+>>>>>>> b85e16d34e7f858cbf7593b4831616d7685580ed
     (fx, fy), ev = food
     c = (BX + fx * CELL + CELL // 2, BY + fy * CELL + CELL // 2)
     p = min(1.0, (ms - food_t0) / 240)
@@ -1453,6 +1546,7 @@ def draw_play():
     hs = max(2, I(halo.get_width() * scale))
     screen.blit(pygame.transform.smoothscale(halo, (hs, hs)), (cn[0] - hs // 2, cn[1] - hs // 2))
     icon = ICON_BY_NAME[ev[0]]
+<<<<<<< HEAD
     isz2 = max(2, I(icon.get_width() * scale))
     icon = pygame.transform.smoothscale(icon, (isz2, isz2))
     screen.blit(icon, icon.get_rect(center=cn))
@@ -1460,6 +1554,17 @@ def draw_play():
     t = min(1.0, acc / STEP_MS) if (scene == "play" and state == "play") else 1.0
     draw_snake(t, ms)
 
+=======
+    isz = max(2, I(icon.get_width() * scale))
+    icon = pygame.transform.smoothscale(icon, (isz, isz))
+    screen.blit(icon, icon.get_rect(center=cn))
+
+    # rắn (liền mạch). Khi kết thúc ván thì đứng yên ở vị trí cuối.
+    t = min(1.0, acc / STEP_MS) if (scene == "play" and state == "play") else 1.0
+    draw_snake(t, ms)
+
+    # thông báo vừa ăn sự kiện
+>>>>>>> b85e16d34e7f858cbf7593b4831616d7685580ed
     if toast and pygame.time.get_ticks() < toast_until:
         img = f_lbl.render(toast, True, T["bg"])
         pill = pygame.Rect(0, 0, I(img.get_width() / S) + 24, I(img.get_height() / S) + 12)
@@ -1467,6 +1572,7 @@ def draw_play():
         rrect(pill, T["text"], 14)
         screen.blit(img, img.get_rect(center=sp(pill.center)))
 
+<<<<<<< HEAD
     put(f_lbl, "Nút điều hướng", T["sub"], center=(DPC, DP_TOP - 14))
     for d, r in DPAD.items():
         rrect(r, T["card"], 12, border=T["border"], bw=1)
@@ -1476,18 +1582,34 @@ def draw_play():
     put(f_lbl, "Phím mũi tên / WASD: di chuyển  ·  ESC: thoát  ·  N: âm thanh  ·  F11: toàn màn hình",
         T["sub"], center=(W // 2, H - 26))
 
+=======
+    put(f_lbl, "Map: " + T["name"], T["sub"], midleft=(PX, BY + BW - 24))
+    if state == "play":
+        button(EXIT_RECT, "Thoát", hover=EXIT_RECT.collidepoint(mouse_pos()), danger=True)
+
+    # bảng kết thúc
+>>>>>>> b85e16d34e7f858cbf7593b4831616d7685580ed
     if state != "play":
         rrect(pygame.Rect(BX, BY, BW, BW), T["veil"], 16)
         rrect(OVER, T["card"], 18, border=T["line"])
         title = {"win": "Hoàn thành 100 điểm!", "quit": "Kết quả ván chơi"}.get(state, "Hết lượt!")
         put(f_head, title, T["text"], center=(OVER.centerx, OVER.y + 36))
         put(f_txt, f"Điểm rèn luyện: {drl}  ·  Xếp loại: {rank(drl)}", T["sub"],
+<<<<<<< HEAD
             center=(OVER.centerx, OVER.y + 76))
         if new_rec:
             put(f_btn, "Kỷ lục mới!", (230, 140, 30), center=(OVER.centerx, OVER.y + 108))
         else:
             put(f_lbl, f"Kỷ lục: {best}", T["sub"], center=(OVER.centerx, OVER.y + 108))
         put(f_lbl, f"Đã ăn {eaten} sự kiện  ·  Độ dài rắn: {len(snake)}", T["sub"], center=(OVER.centerx, OVER.y + 136))
+=======
+            center=(OVER.centerx, OVER.y + 72))
+        if new_rec:
+            put(f_btn, "Kỷ lục mới!", (230, 140, 30), center=(OVER.centerx, OVER.y + 100))
+        else:
+            put(f_lbl, f"Kỷ lục: {best}", T["sub"], center=(OVER.centerx, OVER.y + 100))
+        put(f_lbl, f"Đã ăn {eaten} sự kiện  ·  Độ dài rắn: {len(snake)}", T["sub"], center=(OVER.centerx, OVER.y + 124))
+>>>>>>> b85e16d34e7f858cbf7593b4831616d7685580ed
         mp = mouse_pos()
         button(OVER_RETRY, "Chơi lại", OVER_RETRY.collidepoint(mp), primary=True)
         button(OVER_MENU, "Về menu", OVER_MENU.collidepoint(mp), dark=T["dark"])
